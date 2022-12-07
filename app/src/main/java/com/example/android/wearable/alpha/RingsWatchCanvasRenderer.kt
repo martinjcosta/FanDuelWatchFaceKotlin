@@ -265,14 +265,14 @@ class RingsWatchCanvasRenderer(
             canvas = canvas,
             bounds = bounds,
             progress = 0.5f,
-            margin = 0.2f
+            margin = 10.0f
         )
 
         drawMrFoosRing(
             canvas = canvas,
             bounds = bounds,
             progress = 0.5f,
-            margin = 10.0f
+            margin = 30.0f
         )
 
         if (renderParameters.watchFaceLayers.contains(WatchFaceLayer.COMPLICATIONS_OVERLAY)) {
@@ -547,17 +547,25 @@ class RingsWatchCanvasRenderer(
         val centerY = bounds.exactCenterY()
         val radius = bounds.width() / 2.0f - margin
 
-        canvas.drawCircle(
-            centerX,
-            centerY,
-            radius,
+        canvas.drawArc(
+            centerX - radius,
+            centerY - radius,
+            centerX + radius,
+            centerY + radius,
+            0.0f,
+            360.0f * progress,
+            false,
             progressDonePaint
         )
 
-        canvas.drawCircle(
-            centerX,
-            centerY,
-            radius,
+        canvas.drawArc(
+            centerX - radius,
+            centerY - radius,
+            centerX + radius,
+            centerY + radius,
+            360.0f * progress,
+            360.0f * (1.0f - progress),
+            false,
             progressLeftPaint
         )
     }
@@ -572,17 +580,25 @@ class RingsWatchCanvasRenderer(
         val centerY = bounds.exactCenterY()
         val radius =  bounds.width() / 2.0f - margin
 
-        canvas.drawCircle(
-            centerX,
-            centerY,
-            radius,
+        canvas.drawArc(
+            centerX - radius,
+            centerY - radius,
+            centerX + radius,
+            centerY + radius,
+            0.0f,
+            360.0f * progress,
+            false,
             mrFoosDonePaint
         )
 
-        canvas.drawCircle(
-            centerX,
-            centerY,
-            radius,
+        canvas.drawArc(
+            centerX - radius,
+            centerY - radius,
+            centerX + radius,
+            centerY + radius,
+            360.0f * progress,
+            360.0f * (1.0f - progress),
+            false,
             mrFoosLeftPaint
         )
     }
