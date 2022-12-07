@@ -2,6 +2,7 @@ package com.example.android.wearable.alpha
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
@@ -95,21 +96,29 @@ class RingsWatchCanvasRenderer(
     private val progressDonePaint = Paint().apply {
         isAntiAlias = true
         strokeWidth = context.resources.getDimensionPixelSize(R.dimen.progress_done_stroke_width).toFloat()
+        color = Color.RED
+        style = Paint.Style.STROKE
     }
 
     private val progressLeftPaint = Paint().apply {
         isAntiAlias = true
         strokeWidth = context.resources.getDimensionPixelSize(R.dimen.progress_left_stroke_width).toFloat()
+        color = Color.BLUE
+        style = Paint.Style.STROKE
     }
 
     private val mrFoosDonePaint = Paint().apply {
         isAntiAlias = true
         strokeWidth = context.resources.getDimensionPixelSize(R.dimen.mr_foos_done_stroke_width).toFloat()
+        color = Color.GREEN
+        style = Paint.Style.STROKE
     }
 
     private val mrFoosLeftPaint = Paint().apply {
         isAntiAlias = true
         strokeWidth = context.resources.getDimensionPixelSize(R.dimen.mr_foos_left_stroke_width).toFloat()
+        color = Color.YELLOW
+        style = Paint.Style.STROKE
     }
 
     private lateinit var hourHandFill: Path
@@ -251,6 +260,20 @@ class RingsWatchCanvasRenderer(
 
         // CanvasComplicationDrawable already obeys rendererParameters.
         drawComplications(canvas, zonedDateTime)
+
+        drawGameProgressRing(
+            canvas = canvas,
+            bounds = bounds,
+            progress = 0.5f,
+            margin = 0.2f
+        )
+
+        drawMrFoosRing(
+            canvas = canvas,
+            bounds = bounds,
+            progress = 0.5f,
+            margin = 10.0f
+        )
 
         if (renderParameters.watchFaceLayers.contains(WatchFaceLayer.COMPLICATIONS_OVERLAY)) {
             drawClockHands(canvas, bounds, zonedDateTime)
@@ -547,7 +570,7 @@ class RingsWatchCanvasRenderer(
     ) {
         val centerX = bounds.exactCenterX()
         val centerY = bounds.exactCenterY()
-        val radius = bounds.width() / 2.0f - margin
+        val radius =  bounds.width() / 2.0f - margin
 
         canvas.drawCircle(
             centerX,
@@ -568,7 +591,7 @@ class RingsWatchCanvasRenderer(
         private const val TAG = "AnalogWatchCanvasRenderer"
 
         // Painted between pips on watch face for hour marks.
-        private val HOUR_MARKS = arrayOf("3", "6", "9", "12")
+        private val HOUR_MARKS = arrayOf("D", "U", "E", "L")
 
         // Used to canvas.scale() to scale watch hands in proper bounds. This will always be 1.0.
         private const val WATCH_HAND_SCALE = 1.0f
