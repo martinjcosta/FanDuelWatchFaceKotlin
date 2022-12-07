@@ -92,6 +92,26 @@ class RingsWatchCanvasRenderer(
         textSize = context.resources.getDimensionPixelSize(R.dimen.hour_mark_size).toFloat()
     }
 
+    private val progressDonePaint = Paint().apply {
+        isAntiAlias = true
+        strokeWidth = context.resources.getDimensionPixelSize(R.dimen.progress_done_stroke_width).toFloat()
+    }
+
+    private val progressLeftPaint = Paint().apply {
+        isAntiAlias = true
+        strokeWidth = context.resources.getDimensionPixelSize(R.dimen.progress_left_stroke_width).toFloat()
+    }
+
+    private val mrFoosDonePaint = Paint().apply {
+        isAntiAlias = true
+        strokeWidth = context.resources.getDimensionPixelSize(R.dimen.mr_foos_done_stroke_width).toFloat()
+    }
+
+    private val mrFoosLeftPaint = Paint().apply {
+        isAntiAlias = true
+        strokeWidth = context.resources.getDimensionPixelSize(R.dimen.mr_foos_left_stroke_width).toFloat()
+    }
+
     private lateinit var hourHandFill: Path
     private lateinit var hourHandBorder: Path
     private lateinit var minuteHandFill: Path
@@ -488,6 +508,59 @@ class RingsWatchCanvasRenderer(
             centerY,
             radiusFraction * bounds.width(),
             outerElementPaint
+        )
+    }
+
+    // Draws a progress ring around the edge of the round watch face
+    // The progress ring indicates the progress of a game, the parameter progress is the progress of the game
+    // progress ranges from 0.0f to 1.0f
+    private fun drawGameProgressRing(
+        canvas: Canvas,
+        bounds: Rect,
+        progress: Float,
+        margin: Float
+    ) {
+        val centerX = bounds.exactCenterX()
+        val centerY = bounds.exactCenterY()
+        val radius = bounds.width() / 2.0f - margin
+
+        canvas.drawCircle(
+            centerX,
+            centerY,
+            radius,
+            progressDonePaint
+        )
+
+        canvas.drawCircle(
+            centerX,
+            centerY,
+            radius,
+            progressLeftPaint
+        )
+    }
+
+    private fun drawMrFoosRing(
+        canvas: Canvas,
+        bounds: Rect,
+        progress: Float,
+        margin: Float
+    ) {
+        val centerX = bounds.exactCenterX()
+        val centerY = bounds.exactCenterY()
+        val radius = bounds.width() / 2.0f - margin
+
+        canvas.drawCircle(
+            centerX,
+            centerY,
+            radius,
+            mrFoosDonePaint
+        )
+
+        canvas.drawCircle(
+            centerX,
+            centerY,
+            radius,
+            mrFoosLeftPaint
         )
     }
 

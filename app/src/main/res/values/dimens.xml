@@ -33,4 +33,8 @@
     <dimen name="analog_complication_color_picker_size">70dp</dimen>
     <dimen name="watch_face_preview_background_padding">16dp</dimen>
     <dimen name="no_padding">0dp</dimen>
+    <dimen name="progress_done_stroke_width">4dp</dimen>
+    <dimen name="progress_left_stroke_width">4dp</dimen>
+    <dimen name="mr_foos_done_stroke_width">4dp</dimen>
+    <dimen name="mr_foos_left_stroke_width">4dp</dimen>
 </resources>
