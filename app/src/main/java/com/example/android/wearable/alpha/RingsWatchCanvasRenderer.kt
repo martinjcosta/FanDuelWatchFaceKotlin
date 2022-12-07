@@ -261,17 +261,20 @@ class RingsWatchCanvasRenderer(
         // CanvasComplicationDrawable already obeys rendererParameters.
         drawComplications(canvas, zonedDateTime)
 
+        val gameProgress = 0.5f
+        val mrFoosProgress = 0.75f
+
         drawGameProgressRing(
             canvas = canvas,
             bounds = bounds,
-            progress = 0.5f,
+            progress = gameProgress,
             margin = 10.0f
         )
 
         drawMrFoosRing(
             canvas = canvas,
             bounds = bounds,
-            progress = 0.5f,
+            progress = mrFoosProgress,
             margin = 30.0f
         )
 
