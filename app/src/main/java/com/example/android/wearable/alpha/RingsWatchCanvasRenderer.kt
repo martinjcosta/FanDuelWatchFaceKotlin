@@ -341,14 +341,14 @@ class RingsWatchCanvasRenderer(
                 val left = centerX - rotatedMrFoosBitmap.width / 2
                 val top = centerY - rotatedMrFoosBitmap.height / 2
 
+                complication.render(canvas, zonedDateTime, renderParameters)
+
                 canvas.drawBitmap(
                     rotatedMrFoosBitmap,
                     left + point.first,
                     top + point.second,
                     null
                 )
-
-                complication.render(canvas, zonedDateTime, renderParameters)
             }
         }
     }
