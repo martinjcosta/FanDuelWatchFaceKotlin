@@ -35,14 +35,15 @@ import com.example.android.wearable.alpha.R
 // Creates bounds for the locations of both right and left complications. (This is the
 // location from 0.0 - 1.0.)
 // Both left and right complications use the same top and bottom bounds.
-private const val LEFT_AND_RIGHT_COMPLICATIONS_TOP_BOUND = 0.4f
-private const val LEFT_AND_RIGHT_COMPLICATIONS_BOTTOM_BOUND = 0.6f
+private const val LEFT_COMPLICATION_TOP_BOUND = 0.0f
+private const val LEFT_COMPLICATION_BOTTOM_BOUND = 1.0f
+private const val LEFT_COMPLICATION_LEFT_BOUND = 0.0f
+private const val LEFT_COMPLICATION_RIGHT_BOUND = 1.0f
 
-private const val LEFT_COMPLICATION_LEFT_BOUND = 0.2f
-private const val LEFT_COMPLICATION_RIGHT_BOUND = 0.4f
-
-private const val RIGHT_COMPLICATION_LEFT_BOUND = 0.6f
-private const val RIGHT_COMPLICATION_RIGHT_BOUND = 0.8f
+private const val RIGHT_COMPLICATION_TOP_BOUND = 0.05f
+private const val RIGHT_COMPLICATION_BOTTOM_BOUND = 0.95f
+private const val RIGHT_COMPLICATION_LEFT_BOUND = 0.05f
+private const val RIGHT_COMPLICATION_RIGHT_BOUND = 0.95f
 
 private const val OUTER_COMPLICATION_LEFT_BOUND = 0.4f
 private const val OUTER_COMPLICATION_RIGHT_BOUND = 0.6f
@@ -135,9 +136,9 @@ fun createComplicationSlotManager(
         bounds = ComplicationSlotBounds(
             RectF(
                 LEFT_COMPLICATION_LEFT_BOUND,
-                LEFT_AND_RIGHT_COMPLICATIONS_TOP_BOUND,
+                LEFT_COMPLICATION_TOP_BOUND,
                 LEFT_COMPLICATION_RIGHT_BOUND,
-                LEFT_AND_RIGHT_COMPLICATIONS_BOTTOM_BOUND
+                LEFT_COMPLICATION_BOTTOM_BOUND
             )
         ),
         boundingArc = BoundingArc(
@@ -159,9 +160,9 @@ fun createComplicationSlotManager(
         bounds = ComplicationSlotBounds(
             RectF(
                 RIGHT_COMPLICATION_LEFT_BOUND,
-                LEFT_AND_RIGHT_COMPLICATIONS_TOP_BOUND,
+                RIGHT_COMPLICATION_TOP_BOUND,
                 RIGHT_COMPLICATION_RIGHT_BOUND,
-                LEFT_AND_RIGHT_COMPLICATIONS_BOTTOM_BOUND
+                RIGHT_COMPLICATION_BOTTOM_BOUND
             )
         ),
         boundingArc = BoundingArc(

@@ -264,7 +264,7 @@ class RingsWatchCanvasRenderer(
         val gameProgress = 0.5f
         val mrFoosProgress = 0.75f
 
-        drawGameProgressRing(
+        /*drawGameProgressRing(
             canvas = canvas,
             bounds = bounds,
             progress = gameProgress,
@@ -276,7 +276,7 @@ class RingsWatchCanvasRenderer(
             bounds = bounds,
             progress = mrFoosProgress,
             margin = 30.0f
-        )
+        )*/
 
         if (renderParameters.watchFaceLayers.contains(WatchFaceLayer.COMPLICATIONS_OVERLAY)) {
             drawClockHands(canvas, bounds, zonedDateTime)
