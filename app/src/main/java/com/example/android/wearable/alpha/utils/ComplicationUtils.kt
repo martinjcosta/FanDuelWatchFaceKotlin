@@ -124,7 +124,7 @@ fun createComplicationSlotManager(
             )
         }
 
-    val leftComplication = ComplicationSlot.createRoundRectComplicationSlotBuilder(
+    val leftComplication = ComplicationSlot.createEdgeComplicationSlotBuilder(
         id = ComplicationConfig.Left.id,
         canvasComplicationFactory = defaultCanvasComplicationFactory,
         supportedTypes = ComplicationConfig.Left.supportedTypes,
@@ -139,11 +139,16 @@ fun createComplicationSlotManager(
                 LEFT_COMPLICATION_RIGHT_BOUND,
                 LEFT_AND_RIGHT_COMPLICATIONS_BOTTOM_BOUND
             )
+        ),
+        boundingArc = BoundingArc(
+            startAngle = 0.0f,
+            totalAngle = 180.0f,
+            thickness = 5.0f
         )
     )
         .build()
 
-    val rightComplication = ComplicationSlot.createRoundRectComplicationSlotBuilder(
+    val rightComplication = ComplicationSlot.createEdgeComplicationSlotBuilder(
         id = ComplicationConfig.Right.id,
         canvasComplicationFactory = defaultCanvasComplicationFactory,
         supportedTypes = ComplicationConfig.Right.supportedTypes,
@@ -158,6 +163,11 @@ fun createComplicationSlotManager(
                 RIGHT_COMPLICATION_RIGHT_BOUND,
                 LEFT_AND_RIGHT_COMPLICATIONS_BOTTOM_BOUND
             )
+        ),
+        boundingArc = BoundingArc(
+            startAngle = 180.0f,
+            totalAngle = 180.0f,
+            thickness = 5.0f
         )
     ).build()
 
@@ -209,7 +219,7 @@ fun createComplicationSlotManager(
 
 
     return ComplicationSlotsManager(
-        listOf(leftComplication, rightComplication, outerComplication, innerComplication),
+        listOf(leftComplication, rightComplication),
         currentUserStyleRepository
     )
 
