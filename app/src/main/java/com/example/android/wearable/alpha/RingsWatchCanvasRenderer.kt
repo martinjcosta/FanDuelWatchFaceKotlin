@@ -1,19 +1,24 @@
 package com.example.android.wearable.alpha
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.Path
 import android.graphics.Rect
 import android.util.Log
 import android.view.SurfaceHolder
+import androidx.core.graphics.scale
 import androidx.core.graphics.withRotation
 import androidx.core.graphics.withScale
 import androidx.wear.watchface.ComplicationSlotsManager
 import androidx.wear.watchface.DrawMode
 import androidx.wear.watchface.Renderer
 import androidx.wear.watchface.WatchState
+import androidx.wear.watchface.complications.data.RangedValueComplicationData
 import androidx.wear.watchface.complications.rendering.CanvasComplicationDrawable
 import androidx.wear.watchface.complications.rendering.ComplicationDrawable
 import androidx.wear.watchface.style.CurrentUserStyleRepository
@@ -259,7 +264,7 @@ class RingsWatchCanvasRenderer(
         canvas.drawColor(backgroundColor)
 
         // CanvasComplicationDrawable already obeys rendererParameters.
-        drawComplications(canvas, zonedDateTime)
+        drawComplications(canvas, zonedDateTime, bounds)
 
         val gameProgress = 0.5f
         val mrFoosProgress = 0.75f
@@ -299,12 +304,69 @@ class RingsWatchCanvasRenderer(
     }
 
     // ----- All drawing functions -----
-    private fun drawComplications(canvas: Canvas, zonedDateTime: ZonedDateTime) {
+    private fun drawComplications(canvas: Canvas, zonedDateTime: ZonedDateTime, bounds: Rect) {
         for ((_, complication) in complicationSlotsManager.complicationSlots) {
             if (complication.enabled) {
+                // Get the complication data if it is a ranged value
+                val complicationData = complication.renderer.getData() as? RangedValueComplicationData
+                val min = complicationData?.min ?: 0.0f
+                val max = complicationData?.max ?: 100.0f
+                val value = complicationData?.value ?: 0.0f
+
+                // Draw Mr. Foos at the value
+                // Use the image resource scoreline_entry_marker_light_xxxhdpi.png
+                // Draw the image at the correct position on the ring
+
+                var mrFoosBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.scoreline_entry_marker_light_xxxhdpi)
+                mrFoosBitmap = mrFoosBitmap.scale(20, 34)
+
+                // The center of the clock face, using bounds
+                val centerX = bounds.exactCenterX()
+                val centerY = bounds.exactCenterY()
+
+                // The radius of the ring
+                val radius = bounds.width() / 2.0f - 20.0f // * watchFaceData.numberRadiusFraction
+
+                val angle = 2.0f * getAngle(min, max, value) - 90.0f
+
+                val point = getPoint(angle, radius)
+
+                // Rotate the bitmap by the angle
+                val matrix = Matrix()
+                matrix.postRotate(angle + 90.0f, mrFoosBitmap.width / 2.0f, mrFoosBitmap.height / 2.0f)
+
+                val rotatedMrFoosBitmap = Bitmap.createBitmap(mrFoosBitmap, 0, 0, mrFoosBitmap.width, mrFoosBitmap.height, matrix, true)
+
+                // The position of the image, anchoring it to the center of the image
+                val left = centerX - rotatedMrFoosBitmap.width / 2
+                val top = centerY - rotatedMrFoosBitmap.height / 2
+
+                canvas.drawBitmap(
+                    rotatedMrFoosBitmap,
+                    left + point.first,
+                    top + point.second,
+                    null
+                )
+
                 complication.render(canvas, zonedDateTime, renderParameters)
             }
         }
+    }
+
+    // Given an angle in degrees, return the x and y coordinates of the point on the circle
+    fun getPoint(angle: Float, radius: Float): Pair<Float, Float> {
+        val x = (radius * cos(Math.toRadians(angle.toDouble()))).toFloat()
+        val y = (radius * sin(Math.toRadians(angle.toDouble()))).toFloat()
+        return Pair(x, y)
+    }
+
+    // Given min, max, and value, return the angle in degrees
+    fun getAngle(min: Float, max: Float, value: Float): Float {
+        val range = max - min
+        val valueRange = value - min
+        val percent = valueRange / range
+        val angle = 180.0f * percent
+        return angle
     }
 
     private fun drawClockHands(
