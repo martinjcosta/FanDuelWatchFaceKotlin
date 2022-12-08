@@ -72,9 +72,9 @@ sealed class ComplicationConfig(val id: Int, val supportedTypes: List<Complicati
         LEFT_COMPLICATION_ID,
         listOf(
             ComplicationType.RANGED_VALUE,
-            ComplicationType.MONOCHROMATIC_IMAGE,
+            /*ComplicationType.MONOCHROMATIC_IMAGE,
             ComplicationType.SHORT_TEXT,
-            ComplicationType.SMALL_IMAGE
+            ComplicationType.SMALL_IMAGE*/
         )
     )
 
@@ -82,9 +82,9 @@ sealed class ComplicationConfig(val id: Int, val supportedTypes: List<Complicati
         RIGHT_COMPLICATION_ID,
         listOf(
             ComplicationType.RANGED_VALUE,
-            ComplicationType.MONOCHROMATIC_IMAGE,
+            /*ComplicationType.MONOCHROMATIC_IMAGE,
             ComplicationType.SHORT_TEXT,
-            ComplicationType.SMALL_IMAGE
+            ComplicationType.SMALL_IMAGE*/
         )
     )
 
