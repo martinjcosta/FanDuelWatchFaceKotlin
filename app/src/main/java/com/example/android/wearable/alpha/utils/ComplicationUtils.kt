@@ -131,7 +131,7 @@ fun createComplicationSlotManager(
         supportedTypes = ComplicationConfig.Left.supportedTypes,
         defaultDataSourcePolicy = DefaultComplicationDataSourcePolicy(
             SystemDataSources.DATA_SOURCE_DAY_OF_WEEK,
-            ComplicationType.SHORT_TEXT
+            ComplicationType.RANGED_VALUE
         ),
         bounds = ComplicationSlotBounds(
             RectF(
@@ -155,7 +155,7 @@ fun createComplicationSlotManager(
         supportedTypes = ComplicationConfig.Right.supportedTypes,
         defaultDataSourcePolicy = DefaultComplicationDataSourcePolicy(
             SystemDataSources.DATA_SOURCE_STEP_COUNT,
-            ComplicationType.SHORT_TEXT
+            ComplicationType.RANGED_VALUE
         ),
         bounds = ComplicationSlotBounds(
             RectF(

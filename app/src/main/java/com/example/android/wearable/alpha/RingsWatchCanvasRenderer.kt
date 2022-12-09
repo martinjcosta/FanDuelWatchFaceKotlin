@@ -101,14 +101,16 @@ class RingsWatchCanvasRenderer(
     private val progressDonePaint = Paint().apply {
         isAntiAlias = true
         strokeWidth = context.resources.getDimensionPixelSize(R.dimen.progress_done_stroke_width).toFloat()
-        color = Color.RED
+        // Color B9C4CB
+        color = Color.rgb(185, 196, 203)
         style = Paint.Style.STROKE
     }
 
     private val progressLeftPaint = Paint().apply {
         isAntiAlias = true
         strokeWidth = context.resources.getDimensionPixelSize(R.dimen.progress_left_stroke_width).toFloat()
-        color = Color.BLUE
+        // Color 1BB152
+        color = Color.rgb(27, 177, 82)
         style = Paint.Style.STROKE
     }
 
@@ -263,25 +265,27 @@ class RingsWatchCanvasRenderer(
 
         canvas.drawColor(backgroundColor)
 
-        // CanvasComplicationDrawable already obeys rendererParameters.
-        drawComplications(canvas, zonedDateTime, bounds)
 
-        val gameProgress = 0.5f
+
+        val gameProgress = 0.8f
         val mrFoosProgress = 0.75f
 
-        /*drawGameProgressRing(
+        drawGameProgressRing(
             canvas = canvas,
             bounds = bounds,
             progress = gameProgress,
-            margin = 10.0f
+            margin = 30.0f
         )
 
-        drawMrFoosRing(
+        /*drawMrFoosRing(
             canvas = canvas,
             bounds = bounds,
             progress = mrFoosProgress,
             margin = 30.0f
         )*/
+
+        // CanvasComplicationDrawable already obeys rendererParameters.
+        drawComplications(canvas, zonedDateTime, bounds)
 
         if (renderParameters.watchFaceLayers.contains(WatchFaceLayer.COMPLICATIONS_OVERLAY)) {
             drawClockHands(canvas, bounds, zonedDateTime)
@@ -617,7 +621,7 @@ class RingsWatchCanvasRenderer(
             centerY - radius,
             centerX + radius,
             centerY + radius,
-            0.0f,
+            -90.0f,
             360.0f * progress,
             false,
             progressDonePaint
@@ -628,7 +632,7 @@ class RingsWatchCanvasRenderer(
             centerY - radius,
             centerX + radius,
             centerY + radius,
-            360.0f * progress,
+            360.0f * progress - 90.0f,
             360.0f * (1.0f - progress),
             false,
             progressLeftPaint
