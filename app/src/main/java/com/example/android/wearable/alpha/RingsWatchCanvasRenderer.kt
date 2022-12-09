@@ -263,8 +263,16 @@ class RingsWatchCanvasRenderer(
             watchFaceColors.activeBackgroundColor
         }
 
+
         canvas.drawColor(backgroundColor)
 
+
+        val fanDuelLogoBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.fanduel_sh_rgb_blu_pos)
+        val fanDuelLogoBitmapScaled = Bitmap.createScaledBitmap(fanDuelLogoBitmap, 160, 160, false)
+        // Draw the scaled bitmap
+        val centerX = bounds.centerX() - fanDuelLogoBitmapScaled.width / 2
+        val centerY = bounds.centerY() - fanDuelLogoBitmapScaled.height / 2
+        canvas.drawBitmap(fanDuelLogoBitmapScaled, centerX.toFloat(), centerY.toFloat(), null)
 
 
         val gameProgress = 0.8f
@@ -274,7 +282,7 @@ class RingsWatchCanvasRenderer(
             canvas = canvas,
             bounds = bounds,
             progress = gameProgress,
-            margin = 30.0f
+            margin = 36.0f
         )
 
         /*drawMrFoosRing(
@@ -676,7 +684,7 @@ class RingsWatchCanvasRenderer(
         private const val TAG = "AnalogWatchCanvasRenderer"
 
         // Painted between pips on watch face for hour marks.
-        private val HOUR_MARKS = arrayOf("D", "U", "E", "L")
+        private val HOUR_MARKS = arrayOf("3", "6", "9", "12")
 
         // Used to canvas.scale() to scale watch hands in proper bounds. This will always be 1.0.
         private const val WATCH_HAND_SCALE = 1.0f
