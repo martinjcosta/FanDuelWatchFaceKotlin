@@ -150,6 +150,9 @@ class RingsWatchCanvasRenderer(
         }
     }
 
+    val fanDuelLogoBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.fanduel_sh_rgb_blu_pos)
+    val fanDuelLogoBitmapScaled = Bitmap.createScaledBitmap(fanDuelLogoBitmap, 160, 160, false)
+
     override suspend fun createSharedAssets(): AnalogSharedAssets {
         return AnalogSharedAssets()
     }
@@ -266,9 +269,6 @@ class RingsWatchCanvasRenderer(
 
         canvas.drawColor(backgroundColor)
 
-
-        val fanDuelLogoBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.fanduel_sh_rgb_blu_pos)
-        val fanDuelLogoBitmapScaled = Bitmap.createScaledBitmap(fanDuelLogoBitmap, 160, 160, false)
         // Draw the scaled bitmap
         val centerX = bounds.centerX() - fanDuelLogoBitmapScaled.width / 2
         val centerY = bounds.centerY() - fanDuelLogoBitmapScaled.height / 2
@@ -292,8 +292,7 @@ class RingsWatchCanvasRenderer(
             margin = 30.0f
         )*/
 
-        // CanvasComplicationDrawable already obeys rendererParameters.
-        drawComplications(canvas, zonedDateTime, bounds)
+
 
         if (renderParameters.watchFaceLayers.contains(WatchFaceLayer.COMPLICATIONS_OVERLAY)) {
             drawClockHands(canvas, bounds, zonedDateTime)
@@ -313,6 +312,9 @@ class RingsWatchCanvasRenderer(
                 watchFaceData.gapBetweenOuterCircleAndBorderFraction
             )
         }
+
+        // CanvasComplicationDrawable already obeys rendererParameters.
+        drawComplications(canvas, zonedDateTime, bounds)
     }
 
     // ----- All drawing functions -----
